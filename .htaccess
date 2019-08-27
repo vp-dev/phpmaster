@@ -1,0 +1,7 @@
+AddDefaultCharset utf-8
+ # кодирока по-умолчанию
+
+RewriteEngine On
+  # механизм перенаправления
+RewriteRule (.*) public/$1
+  # все запросы перенаправвить в папку public
