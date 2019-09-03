@@ -3,7 +3,7 @@
 
 namespace ishop;
 
-
+//трейт Одиночка(Синглтон). Паттерн для использования гарантированно только одного экземпляра класса
 trait TSingletone
 {
     private static $instance;

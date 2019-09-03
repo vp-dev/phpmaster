@@ -6,8 +6,10 @@ class Router
     protected static $routes = [];
     protected static $route = [];
 
+    //Подлючем новый роут
     public static function add($regexp, $route = [])
     {
+        //записываем в массив паттерн и соответствия
         self::$routes[$regexp] = $route;
     }
 
@@ -23,14 +25,16 @@ class Router
 
     public static function dispatch($url)
     {
-        $url = self::removeQueryString($url);
-        if (self::matchRoute($url)) {
+        $url = self::removeQueryString($url);        //Возвращает строку без возможных параметров
+        if (self::matchRoute($url)) {                //Проверяем запрос на соответствие роутам
           $controller = 'app\controllers\\' . self::$route['prefix'] . self::$route['controller'] . 'Controller';
           if (class_exists($controller)) {
               $controllerObject = new $controller(self::$route);
               $action = self::lowerCamelCase(self::$route['action']) . 'Action';
               if (method_exists($controllerObject, $action)) {
+                  //Запускаем нужный экшн в контроллере
                   $controllerObject->$action();
+                  //Подключаем вид
                   $controllerObject->getView();
               } else {
                   throw new \Exception("Метод $action в $controller не найден", 404);
@@ -43,6 +47,7 @@ class Router
         }
     }
 
+    //Проверяем запрос на соответствие роутам
     public static function matchRoute($url)
     {
         foreach (self::$routes as $pattern => $route){
@@ -78,6 +83,7 @@ class Router
         return lcfirst(self::upperCamelCase($name));
     }
 
+    //Возвращает строку запроса без возможных параметров
     public static function removeQueryString($url)
     {
         if ($url) {

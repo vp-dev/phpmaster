@@ -5,5 +5,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule (.*) index.php?$1 [L,QSA]
   # используем index.php пробрасываем параметр из .htaccess
   # директорией выше [RewriteRule (.*) public/$1]
-  # L - последнее правило; QSA - лишние get параметры
-  # не отбрасываются
+  # L - последнее правило; QSA - лишние get параметры не отбрасываются

@@ -8,7 +8,7 @@ define("CORE", ROOT .'/vendor/ishop/core');
 define("LIBS", ROOT .'/vendor/ishop/core/libs');
 define("CACHE", ROOT .'/tmp/cache');
 define("CONFIG", ROOT .'/config');
-define("LAYOUT", 'default');
+define("LAYOUT", 'watches');
 
 //http://phpmaster/public/index.php
 $app_path = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";
@@ -23,4 +23,5 @@ $app_path = str_replace('/public/', '', $app_path);
 define("PATH", $app_path);
 define("ADMIN", PATH . '/admin');
 
+//Подключаем автозагрузку классов, сгенерированную Композером
 require_once (ROOT.'/vendor/autoload.php');

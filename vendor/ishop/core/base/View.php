@@ -1,11 +1,9 @@
 <?php
-
-
 namespace ishop\base;
-
 
 use mysql_xdevapi\Exception;
 
+//Базовый вид
 class View
 {
     public $route;
@@ -17,6 +15,7 @@ class View
     public $data = [];
     public $meta = [];
 
+    //Сюда приходят данные из контроллера
     public function __construct($route, $layout = '', $view = '', $meta)
     {
         $this->route = $route;
@@ -37,13 +36,17 @@ class View
         }
     }
 
+    //Отрисовывание вида
     public function render ($data)
     {
         if (is_array($data)) extract($data);
        $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
        if (is_file($viewFile)) {
+           //Включение буферизации вывода
            ob_start();
+           //$viewFile попадает в буфер
            require_once $viewFile;
+           //Получить содержимое буфера и удалить его
            $content = ob_get_clean();
        } else {
            throw new \Exception("Не найден вид {$viewFile}", 500);
